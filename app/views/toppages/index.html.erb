@@ -1,7 +1,18 @@
 <% if logged_in? %>
   <div class="row">
     <aside class="col-md-4">
-      <%= form_for(@task) do |f| %>
+     <%= form_for(@task) do |f| %>
+ <% if @task.errors.any? %>
+     <div class="alert alert-warning">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
         <div class="form-group">
           <label class="col-md-4 control-label">タスク</label>
           <%= f.text_area :content, class: 'form-control', rows: 5 %>
